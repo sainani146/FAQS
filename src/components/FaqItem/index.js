@@ -1,40 +1,65 @@
-// Write your code here.
+import {Component} from 'react'
+
 import './index.css'
 
-const Faq = props => {
-  const {item, Active, onItem} = props
-  const {bool} = Active
-  const {questionText, answerText, id} = item
+const PLUS_IMAGE =
+  'https://assets.ccbp.in/frontend/react-js/faqs-plus-icon-img.png'
+const MINUS_IMAGE =
+  'https://assets.ccbp.in/frontend/react-js/faqs-minus-icon-img.png'
 
-  const onAnswer = () => {
-    // console.log(id, bool)
-    onItem(id)
+class FaqItem extends Component {
+  state = {
+    isActive: false,
   }
-  const ans = (
-    <div>
-      <hr />
-      <p className="answer">{answerText}</p>
-    </div>
-  )
 
-  const icon = bool
-    ? 'https://assets.ccbp.in/frontend/react-js/faqs-minus-icon-img.png'
-    : 'https://assets.ccbp.in/frontend/react-js/faqs-plus-icon-img.png'
+  renderAnswer = () => {
+    const {faqDetails} = this.props
+    const {answerText} = faqDetails
+    const {isActive} = this.state
 
-  const text = bool ? 'minus' : 'plus'
-
-  return (
-    <li>
-      <div className="faq-section">
-        <div className="question-section">
-          <h1 className="question">{questionText}</h1>
-          <button className="btn" type="button" onClick={onAnswer}>
-            <img src={icon} alt={text} />
-          </button>
+    if (isActive) {
+      return (
+        <div>
+          <hr className="horizontal-line" />
+          <p className="answer">{answerText}</p>
         </div>
-        {bool && ans}
-      </div>
-    </li>
-  )
+      )
+    }
+    return null
+  }
+
+  onToggleIsActive = () => {
+    this.setState(prevState => ({
+      isActive: !prevState.isActive,
+    }))
+  }
+
+  renderActiveImage = () => {
+    const {isActive} = this.state
+    const image = isActive ? MINUS_IMAGE : PLUS_IMAGE
+    const altText = isActive ? 'minus' : 'plus'
+
+    return (
+      <button className="button" type="button" onClick={this.onToggleIsActive}>
+        <img className="image" src={image} alt={altText} />
+      </button>
+    )
+  }
+
+  render() {
+    const {faqDetails} = this.props
+    const {questionText} = faqDetails
+
+    return (
+      <li className="faq-item">
+        <div className="question-container">
+          <h1 className="question">{questionText}</h1>
+          {this.renderActiveImage()}
+        </div>
+        {this.renderAnswer()}
+      </li>
+    )
+  }
 }
-export default Faq
+
+export default FaqItem
