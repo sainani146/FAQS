@@ -1,0 +1,39 @@
+/* Write your code here. */
+li {
+  border: 1px solid #d7dae6;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.faq-section {
+  padding: 10px;
+}
+
+.question-section {
+  display: flex;
+  justify-content: space-between;
+  color: #52606d;
+}
+.question {
+  font-size: medium;
+}
+.answer {
+  font-size: 15px;
+  color: #9aa5b1;
+}
+
+.btn {
+  background-color: transparent;
+  outline: none;
+  border-style: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 400px) {
+  .question {
+    font-size: 15px;
+  }
+  .answer {
+    font-size: 10px;
+  }
+}
